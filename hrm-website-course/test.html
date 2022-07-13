@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+    <div id="jumpToPay"></div>
+    <button onclick="handleClick()">支付</button>
+
+    <script type="text/javascript">
+
+        let json = {
+            "id": 1,
+            "loginId": 2,
+            "carCourseId": 18,
+            "courseTypeId": 1039,
+            "name": "java基础班",
+            "forUser": "小白",
+            "gradeId": 4,
+            "gradeName": "黄金",
+            "pic": "/group1/M00/00/0D/dhma1l9fLFaAeRHlAAG2y9QMLL8708.png",
+            "startTime": "2019-09-29",
+            "endTime": "2019-10-01",
+            "description": "这个一个牛逼的技术",
+            "intro": "<p>22222</p>",
+            "charge": 2,
+            "qq": "2222",
+            "price": 222.0,
+            "priceOld": 555.0,
+            "expires": "2020-09-14",
+            "tenantId": 26,
+            "tenantName": "源码时代",
+            "contacts":"刘陈晨",
+            "address":"重庆源码时代校区",
+            "phone":"13650521121"
+        };
+
+        function handleClick(){
+
+            $.ajax({
+                url:"http://localhost:8080/hrm/shopcar/chart/buy",
+                type:"post",
+                dataType:"json",
+                data:JSON.stringify(json),
+                headers: {'Content-Type': 'application/json'},
+                success: function (data) {
+                    let {success,message,resultObj} = data;
+                    if(success){
+                        $("#jumpToPay").html(resultObj)
+                    }else{
+                        alert("失败")
+                    }
+                }
+            })
+
+            /*$.post("http://localhost:8080/hrm/shopcar/chart/buy",json,function(data){
+
+                let {success,message,resultObj} = data;
+                if(success){
+                    $("#jumpToPay").html(resultObj)
+                }else{
+                    alert("失败")
+                }
+
+            },"json")*/
+        }
+    </script>
+
+</body>
+</html>
